@@ -1,0 +1,42 @@
+        /* Контейнер всех пунктов — в одну строку */
+        .group-row {
+            display: flex;
+            gap: 25px;
+            margin-top: 15px;
+            flex-wrap: wrap; /* чтобы на телефонах красиво переносилось */
+        }
+
+        /* Контейнер каждого варианта */
+        label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        /* Прячем дефолтный radio */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Квадрат */
+        .square {
+            width: 22px;
+            height: 22px;
+            border: 2px solid #444;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            font-weight: bold;
+            color: transparent;
+            transition: 0.2s;
+        }
+
+        /* Галочка когда выбран */
+        input[type="radio"]:checked + .square {
+            background: #4caf50;
+            color: white;
+        }

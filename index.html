@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заказ дипломов</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen p-4 sm:p-6 bg-gray-100 flex justify-center">
+
+<div class="w-full max-w-3xl bg-white shadow-lg rounded-xl p-6 sm:p-8">
+
+<h1 class="text-2xl font-bold mb-4 text-center">Заказ дипломов</h1>
+<p class="mb-6 text-center text-gray-700">
+    Дипломы трёх лучших работ Вашей школы<br>в каждой возрастной группе конкурса
+</p>
+
+<!-- ====================== ВОЗРАСТНАЯ ГРУППА ==================== -->
+<h3 class="text-xl font-semibold mb-3">Возрастная группа</h3>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <label class="block border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition">
+        <div class="flex items-center gap-3">
+            <input type="radio" name="group1" value="5–7 лет" data-price="100" class="price-radio h-5 w-5">
+            <span>5–7 лет</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-2">100 грн</div>
+    </label>
+
+    <label class="block border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition">
+        <div class="flex items-center gap-3">
+            <input type="radio" name="group1" value="8–11 лет" data-price="120" class="price-radio h-5 w-5">
+            <span>8–11 лет</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-2">120 грн</div>
+    </label>
+
+    <label class="block border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition">
+        <div class="flex items-center gap-3">
+            <input type="radio" name="group1" value="12–17 лет" data-price="150" class="price-radio h-5 w-5">
+            <span>12–17 лет</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-2">150 грн</div>
+    </label>
+
+    <label class="block border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition">
+        <div class="flex items-center gap-3">
+            <input type="radio" name="group1" value="Взрослые" data-price="150" class="price-radio h-5 w-5">
+            <span>Взрослые</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-2">150 грн</div>
+    </label>
+</div>
+
+<!-- ====================== ПОДПИСИ ==================== -->
+<h3 class="text-xl font-semibold mb-3">Подписи</h3>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+    <label class="block border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition">
+        <div class="flex items-center gap-3">
+            <input type="radio" name="group2" value="Цифровой формат" data-price="50" class="price-radio h-5 w-5">
+            <span>Цифровой формат</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-2">50 грн</div>
+    </label>
+
+    <label class="block border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition">
+        <div class="flex items-center gap-3">
+            <input type="radio" name="group2" value="Картон + почта" data-price="70" class="price-radio h-5 w-5">
+            <span>На картоне + почта (ЕС)</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-2">70 грн</div>
+    </label>
+
+    <label class="block border rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition">
+        <div class="flex items-center gap-3">
+            <input type="radio" name="group2" value="Металл" data-price="100" class="price-radio h-5 w-5">
+            <span>На металле</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-2">100 грн</div>
+    </label>
+</div>
+
+<div class="text-xl font-semibold mb-6 text-center">
+    Итого: <span id="totalPrice">0</span> грн
+</div>
+
+<div class="flex justify-center">
+<button id="orderBtn" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-lg shadow">
+    Заказать
+</button>
+</div>
+
+</div>
+
+<!-- ======== Модалка подтверждения ======== -->
+<div id="modalConfirm" class="relative z-10 hidden">
+    <div class="fixed inset-0 bg-black/50"></div>
+
+    <div class="fixed inset-0 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-xl">
+            <h3 class="text-xl font-semibold mb-4">Подтверждение заказа</h3>
+
+            <p class="mb-4 text-gray-700 text-lg">Сумма: <span id="modalPrice" class="font-bold"></span> грн</p>
+
+            <p class="text-gray-700">Желаете провести оплату?</p>
+
+            <div class="flex justify-end gap-3 mt-6">
+                <button id="cancelBtn" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Отказаться</button>
+                <button id="payBtn" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">Оплатить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ======== Модалка результата ======== -->
+<div id="modalResult" class="relative z-10 hidden">
+    <div class="fixed inset-0 bg-black/50"></div>
+
+    <div class="fixed inset-0 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-xl">
+            <h3 id="resultTitle" class="text-xl font-semibold mb-4"></h3>
+            <p id="resultText" class="text-gray-700 mb-6"></p>
+
+            <button id="closeResult" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Закрыть</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const priceRadios = document.querySelectorAll(".price-radio");
+    const totalPriceEl = document.getElementById("totalPrice");
+
+    let total = 0;
+
+    priceRadios.forEach(radio => {
+        radio.addEventListener("change", () => {
+            const groupName = radio.getAttribute("name");
+
+            [...document.querySelectorAll(`input[name="${groupName}"]`)]
+                .forEach(r => {
+                    if (!r.checked) r.dataset.selected = "0";
+                });
+
+            radio.dataset.selected = "1";
+
+            total = [...priceRadios]
+                .filter(r => r.dataset.selected === "1")
+                .reduce((sum, r) => sum + Number(r.dataset.price), 0);
+
+            totalPriceEl.textContent = total;
+        });
+    });
+
+    const modalConfirm = document.getElementById("modalConfirm");
+    const modalResult = document.getElementById("modalResult");
+
+    document.getElementById("orderBtn").addEventListener("click", () => {
+        if (total === 0) return alert("Выберите хотя бы один пункт 👍");
+
+        document.getElementById("modalPrice").textContent = total;
+        modalConfirm.classList.remove("hidden");
+    });
+
+    document.getElementById("cancelBtn").addEventListener("click", () => {
+        modalConfirm.classList.add("hidden");
+
+        document.getElementById("resultTitle").innerText = "Заказ отменён";
+        document.getElementById("resultText").innerText = "Вы отказались от заказа.";
+
+        modalResult.classList.remove("hidden");
+    });
+
+    document.getElementById("payBtn").addEventListener("click", () => {
+        modalConfirm.classList.add("hidden");
+
+        const id = Math.floor(Math.random() * 1_000_000_000);
+
+        document.getElementById("resultTitle").innerText = "Оплата успешна";
+        document.getElementById("resultText").innerText = "Идентификатор оплаты: " + id;
+
+        modalResult.classList.remove("hidden");
+    });
+
+    document.getElementById("closeResult").addEventListener("click", () => {
+        modalResult.classList.add("hidden");
+    });
+</script>
+
+</body>
+</html>
